@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import React from 'react';
 import './App.css';
 import List from './List';
@@ -27,6 +26,7 @@ class App extends React.Component {
       this.setState({ people })
     })()
   }
+
   render() {
     return (
       <div className='App'>

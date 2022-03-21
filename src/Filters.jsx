@@ -6,7 +6,7 @@ class Filters extends React.Component {
   render() {
     const { people } = this.props;
     const crafts = people.reduce((acc, person) => {
-      if ( !acc.includes(person.craft)) {
+      if (!acc.includes(person.craft)) {
         return [...acc, person.craft];
       }
       return acc;

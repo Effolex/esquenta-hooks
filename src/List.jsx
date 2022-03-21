@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-const List = ({ people, filters: { name, craft} }) => {
+import AppContext from './context/AppContext';
+
+const List = () => {
+  const { people, filters: { name, craft} } = useContext(AppContext);
+
   const filteredPeople = people.filter((person) => (
     person.name.includes(name) && (person.craft.includes(craft) || craft === 'All')
   ));
@@ -25,6 +29,6 @@ const List = ({ people, filters: { name, craft} }) => {
       </tbody>
     </table>
   );
-}
+};
 
 export default List;

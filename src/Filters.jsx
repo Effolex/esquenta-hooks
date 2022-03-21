@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from 'react';
 
-const Filters = ({ people, setFilter }) => {
+import AppContext from './context/AppContext';
+
+const Filters = () => {
+  const { people, setFilter } = useContext(AppContext);
+
   const inputHandler = ({ target: { name, value } }) => setFilter(name, value);
 
   const crafts = people.reduce((acc, person) => {

@@ -1,41 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import List from './List';
 import Header from './Header';
 import Filters from './Filters';
 
-class App extends React.Component {
-  state = {
+const App = () => {
+  const [state, setState] = useState({
     people: [],
     filters: {
       name: '',
       craft: '',
     }
-  }
+  });
 
-  setFilter = (filter, value) => {
-    this.setState(({ filters }) => ({
-      filters: {...filters, [filter]: value } }
+  const setFilter = (filter, value) => {
+    setState((prevState) => ({
+      ...prevState,
+      filters: {...prevState.filters, [filter]: value } }
     ));
-  }
+  };
 
-  componentDidMount() {
+  useEffect(() => {
     (async () => {
       const response = await fetch('http://api.open-notify.org/astros.json');
       const { people } = await response.json();
-      this.setState({ people })
+      setState((prevState) => ({ ...prevState, people }));
     })()
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className='App'>
-        <Header {...this.state} />
-        <Filters {...this.state} setFilter={this.setFilter} />
-        <List {...this.state} />
-      </div>
-    );
-  }
+  return (
+    <div className='App'>
+      <Header { ...state } />
+      <Filters {...state } setFilter={setFilter} />
+      <List {...state } />
+    </div>
+  );
 }
 
 export default App;

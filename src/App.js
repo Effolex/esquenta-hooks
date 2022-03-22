@@ -1,41 +1,25 @@
 import React from 'react';
 import './App.css';
+
+import PeopleProvider from './context/PeopleProvider';
+import FiltersProvider from './context/FiltersProvider';
+
 import List from './List';
 import Header from './Header';
 import Filters from './Filters';
 
-class App extends React.Component {
-  state = {
-    people: [],
-    filters: {
-      name: '',
-      craft: '',
-    }
-  }
-
-  setFilter = (filter, value) => {
-    this.setState(({ filters }) => ({
-      filters: {...filters, [filter]: value } }
-    ));
-  }
-
-  componentDidMount() {
-    (async () => {
-      const response = await fetch('http://api.open-notify.org/astros.json');
-      const { people } = await response.json();
-      this.setState({ people })
-    })()
-  }
-
-  render() {
-    return (
+const App = () => {
+  return (
+    <PeopleProvider>
       <div className='App'>
-        <Header {...this.state} />
-        <Filters {...this.state} setFilter={this.setFilter} />
-        <List {...this.state} />
+        <Header />
+        <FiltersProvider>
+          <Filters />
+          <List />
+        </FiltersProvider>
       </div>
-    );
-  }
+    </PeopleProvider>
+  );
 }
 
 export default App;

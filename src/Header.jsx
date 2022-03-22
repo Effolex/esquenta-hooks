@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
-class Header extends React.Component {
-  render() {
-    const { people } = this.props;
-    return (
-      <h2>{`There are ${people.length} people in space right now`}</h2>
-    )
-  }
-}
+import PeopleContext from "./context/PeopleContext";
+
+const Header = () => {
+  const { people } = useContext(PeopleContext);
+
+  return (
+    <h2>{`There are ${people.length} people in space right now`}</h2>
+  );
+};
 
 export default Header;
